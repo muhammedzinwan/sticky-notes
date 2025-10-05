@@ -120,6 +120,40 @@
   - Falls back gracefully: ICO → PNG → empty
   - All icons properly set (4.1KB ICO files)
 
+### Added (Ninth Pass - Visual Pin State Feedback - Redesigned)
+- **Visual Pin State Indicator**: Intuitive pin physics showing pinned/unpinned state (styles.css:80-146, app.js:14,23,56)
+  - **Unpinned (Not Always on Top - Floating)**:
+    - Pin floating above note (translateY: -3px - elevated)
+    - **Tilted 45 degrees** (extreme tilt, barely touching/loose)
+    - **No shadow** (floating, not touching paper)
+    - Brighter red color (#FF8A8A, #FF5252)
+    - Shine highlight more visible
+  - **Pinned (Always on Top - Pressed In)**:
+    - Pin pressed down into paper (translateY: 3px - pushed down)
+    - **Tilted 35 degrees** (angled from being pushed in)
+    - **Strong shadow** (drop-shadow 0 4px 6px, secured to paper)
+    - Darker red color (#FF6B6B, #E53935)
+    - Shine highlight dimmer (pressed look)
+  - Smooth 0.3s transition animation (position + rotation + shadow + color)
+  - Toggle automatically when Ctrl+T is pressed
+  - **More intuitive**: Pinned = pressed down with shadow, Unpinned = floating above without shadow
+
+### Added (Tenth Pass - Clickable Pin & Enhanced UX)
+- **Clickable Push Pin**: Pin itself now clickable for toggling always-on-top (styles.css:81-91, app.js:15,52-54)
+  - Increased z-index to 20 (above drag-handle at z-index 15)
+  - Added cursor pointer and hover effects (scale 1.15, brightness boost)
+  - Active state feedback (scale 0.95 on click)
+  - Same functionality as 📌 emoji button for testing
+- **Background Mode Pin Visibility**: Pin stays more visible in opacity mode (styles.css:273-280, app.js:92)
+  - Pin opacity set to 90% when note is at 30% opacity
+  - Makes pin easily distinguishable from paper in background mode
+  - Helps identify multiple notes when semi-transparent
+- **Random Pin Colors**: Each note gets unique random pin color on creation (app.js:17-46)
+  - 7 color variants: Red, Orange, Yellow, Green, Blue, Purple, Pink
+  - Both normal and pressed states maintain color consistency
+  - Uses CSS custom properties (--pin-light, --pin-dark, --pin-pressed-light, --pin-pressed-dark)
+  - Helps visually distinguish between multiple notes
+
 ### Technical Details
 - Stack: Electron, HTML/CSS/JavaScript
 - Font: Google Fonts (Caveat) for handwriting aesthetic
@@ -129,4 +163,5 @@
 - System Tray: Always running in background with icon
 - Build: electron-builder with ASAR, maximum compression
 - Distribution: Installer + Portable executable
-- Icons: PNG with ICO support (see ICON_SETUP.md)
+- Icons: PNG with ICO support
+- UX: Visual pin state feedback (pinned/unpinned)

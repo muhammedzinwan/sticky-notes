@@ -77,26 +77,39 @@ body {
   border-radius: 0 0 0 4px;
 }
 
-/* Push pin */
+/* Push pin - Default (Unpinned/Floating) - Now Clickable! */
 .push-pin {
   position: absolute;
   top: -8px;
   left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+  transform: translateX(-50%) translateY(-3px) rotate(45deg);
+  z-index: 20;
+  filter: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.push-pin:hover {
+  transform: translateX(-50%) translateY(-3px) rotate(45deg) scale(1.15);
+  filter: brightness(1.15);
+}
+
+.push-pin:active {
+  transform: translateX(-50%) translateY(-3px) rotate(45deg) scale(0.95);
 }
 
 .pin-head {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #FF6B6B, #E53935);
+  background: radial-gradient(circle at 30% 30%, var(--pin-light, #FF8A8A), var(--pin-dark, #FF5252));
   border: 1px solid rgba(0, 0, 0, 0.1);
   position: relative;
   box-shadow:
-    inset -1px -1px 2px rgba(0, 0, 0, 0.2),
-    inset 1px 1px 2px rgba(255, 255, 255, 0.5);
+    inset -1px -1px 2px rgba(0, 0, 0, 0.15),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
 }
 
 .pin-head::after {
@@ -107,7 +120,8 @@ body {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
 }
 
 .pin-needle {
@@ -117,6 +131,38 @@ body {
   margin: 0 auto;
   border-radius: 0 0 1px 1px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Push pin - Pinned State (Pressed Into Paper) */
+.sticky-note.pinned .push-pin {
+  transform: translateX(-50%) translateY(3px) rotate(35deg);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+
+.sticky-note.pinned .push-pin:hover {
+  transform: translateX(-50%) translateY(3px) rotate(35deg) scale(1.15);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5)) brightness(1.15);
+}
+
+.sticky-note.pinned .push-pin:active {
+  transform: translateX(-50%) translateY(3px) rotate(35deg) scale(0.95);
+}
+
+.sticky-note.pinned .pin-head {
+  background: radial-gradient(circle at 30% 30%, var(--pin-pressed-light, #FF6B6B), var(--pin-pressed-dark, #E53935));
+  box-shadow:
+    inset -1px -1px 3px rgba(0, 0, 0, 0.3),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.sticky-note.pinned .pin-head::after {
+  background: rgba(255, 255, 255, 0.5);
+  top: 4px;
+}
+
+.sticky-note.pinned .pin-needle {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Drag handle - covers the pin and top area */
@@ -222,6 +268,11 @@ body {
 
 .btn-opacity.background-mode {
   opacity: 1;
+}
+
+/* Background mode - Pin brightness boost for better visibility */
+.sticky-note.background-mode .push-pin {
+  filter: brightness(1.8) saturate(1.5);
 }
 
 /* Animations */
