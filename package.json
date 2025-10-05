@@ -1,0 +1,62 @@
+{
+  "name": "sticky-notes",
+  "version": "1.0.0",
+  "description": "Beautiful sticky notes app with pin aesthetic",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder --win --x64",
+    "build:portable": "electron-builder --win portable",
+    "build:dir": "electron-builder --dir"
+  },
+  "keywords": ["sticky-notes", "electron", "productivity"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.stickynotes.app",
+    "productName": "Sticky Notes",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "renderer/**/*",
+      "resources/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "resources/yellow-note-paper-with-red-pin_1284-42430.png",
+      "sign": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Sticky Notes",
+      "runAfterFinish": true
+    },
+    "portable": {
+      "artifactName": "StickyNotes-Portable.exe"
+    },
+    "compression": "maximum",
+    "asar": true,
+    "asarUnpack": ["resources/**/*"]
+  }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticky Note</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="sticky-note-container">
+    <!-- CSS-based sticky note -->
+    <div class="sticky-note">
+      <!-- Push pin -->
+      <div class="push-pin">
+        <div class="pin-head"></div>
+        <div class="pin-needle"></div>
+      </div>
+
+      <!-- Corner curl effect -->
+      <div class="corner-curl"></div>
+
+      <!-- Drag handle (invisible, covers pin area and top portion) -->
+      <div class="drag-handle"></div>
+
+      <!-- Text area -->
+      <textarea
+        class="note-textarea"
+        placeholder="Type your note..."
+        spellcheck="true"
+      ></textarea>
+
+      <!-- Action buttons -->
+      <div class="action-buttons">
+        <button class="btn-toggle-top" title="Toggle Always on Top (Ctrl+T)">📌</button>
+        <button class="btn-opacity" title="Background Mode (Ctrl+B)">👁️</button>
+        <button class="btn-new" title="New Note (Ctrl+Shift+N)">➕</button>
+        <button class="btn-delete" title="Delete Note (Ctrl+W)">🗑️</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

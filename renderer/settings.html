@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Sticky Notes</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div class="settings-container">
+    <h1>⚙️ Settings</h1>
+
+    <div class="setting-group">
+      <label for="fontSize">Font Size</label>
+      <div class="slider-container">
+        <input type="range" id="fontSize" min="12" max="24" step="1" value="16">
+        <span id="fontSizeValue">16px</span>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <label for="defaultColor">Default Note Color</label>
+      <select id="defaultColor">
+        <option value="yellow">Yellow</option>
+        <option value="green">Green</option>
+        <option value="pink">Pink</option>
+        <option value="orange">Orange</option>
+        <option value="blue">Blue</option>
+        <option value="purple">Purple</option>
+      </select>
+    </div>
+
+    <div class="setting-group">
+      <label for="alwaysOnTop">
+        <input type="checkbox" id="alwaysOnTop" checked>
+        Always on Top (Default)
+      </label>
+    </div>
+
+    <div class="setting-group">
+      <label for="defaultOpacity">Default Opacity</label>
+      <div class="slider-container">
+        <input type="range" id="defaultOpacity" min="0.3" max="1.0" step="0.1" value="1.0">
+        <span id="opacityValue">100%</span>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button id="saveBtn" class="btn-primary">Save Settings</button>
+      <button id="cancelBtn" class="btn-secondary">Cancel</button>
+    </div>
+
+    <div class="info">
+      <h3>Keyboard Shortcuts</h3>
+      <ul>
+        <li><kbd>Ctrl+Shift+N</kbd> - New Note</li>
+        <li><kbd>Ctrl+T</kbd> - Toggle Always on Top</li>
+        <li><kbd>Ctrl+B</kbd> - Toggle Background Mode</li>
+        <li><kbd>Ctrl+W</kbd> - Delete Note</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

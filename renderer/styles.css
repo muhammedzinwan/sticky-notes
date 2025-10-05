@@ -1,0 +1,282 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: transparent;
+}
+
+body {
+  background: transparent;
+  overflow: hidden;
+  -webkit-app-region: no-drag;
+  font-family: 'Caveat', cursive;
+}
+
+.sticky-note-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Main sticky note */
+.sticky-note {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #FFF176 0%, #FFEB3B 50%, #FDD835 100%);
+  border-radius: 2px;
+  /* Bottom-right directional shadow for realism */
+  box-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.1),
+    4px 4px 12px rgba(0, 0, 0, 0.12),
+    6px 6px 20px rgba(0, 0, 0, 0.08),
+    8px 8px 30px rgba(0, 0, 0, 0.06);
+  transform: rotate(0deg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sticky-note:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow:
+    3px 3px 5px rgba(0, 0, 0, 0.12),
+    6px 6px 15px rgba(0, 0, 0, 0.14),
+    9px 9px 25px rgba(0, 0, 0, 0.1),
+    12px 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* Bottom-right corner curl */
+.corner-curl {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 30px 30px;
+  border-color: transparent transparent #F9A825 transparent;
+  border-radius: 0 0 4px 0;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.corner-curl::before {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(225deg, rgba(0,0,0,0.1) 0%, transparent 50%);
+  border-radius: 0 0 0 4px;
+}
+
+/* Push pin */
+.push-pin {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+
+.pin-head {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #FF6B6B, #E53935);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  box-shadow:
+    inset -1px -1px 2px rgba(0, 0, 0, 0.2),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.pin-head::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.pin-needle {
+  width: 2px;
+  height: 12px;
+  background: linear-gradient(to bottom, #B0BEC5, #78909C);
+  margin: 0 auto;
+  border-radius: 0 0 1px 1px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Drag handle - covers the pin and top area */
+.drag-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  -webkit-app-region: drag;
+  cursor: move;
+  z-index: 15;
+}
+
+/* Textarea overlay */
+.note-textarea {
+  position: absolute;
+  top: 18%;
+  left: 6%;
+  width: 88%;
+  height: 68%;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2c2c2c;
+  line-height: 1.4;
+  padding: 8px 10px;
+  z-index: 5;
+  -webkit-app-region: no-drag;
+}
+
+.note-textarea::placeholder {
+  color: rgba(44, 44, 44, 0.35);
+  font-style: italic;
+}
+
+.note-textarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+.note-textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.note-textarea::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.note-textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Action buttons - Minimalistic */
+.action-buttons {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 20;
+  -webkit-app-region: no-drag;
+}
+
+.sticky-note:hover .action-buttons {
+  opacity: 0.7;
+}
+
+.action-buttons button {
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  opacity: 0.6;
+}
+
+.action-buttons button:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.action-buttons button:active {
+  transform: scale(0.9);
+}
+
+/* Special states - Subtle indicators */
+.btn-toggle-top.pinned {
+  opacity: 1;
+}
+
+.btn-opacity.background-mode {
+  opacity: 1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.sticky-note {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Color variants (can be toggled via JS) */
+.sticky-note.green {
+  background: linear-gradient(135deg, #AED581 0%, #9CCC65 50%, #8BC34A 100%);
+}
+
+.sticky-note.green .corner-curl {
+  border-color: transparent transparent #7CB342 transparent;
+}
+
+.sticky-note.pink {
+  background: linear-gradient(135deg, #F48FB1 0%, #EC407A 50%, #E91E63 100%);
+}
+
+.sticky-note.pink .corner-curl {
+  border-color: transparent transparent #C2185B transparent;
+}
+
+.sticky-note.orange {
+  background: linear-gradient(135deg, #FFB74D 0%, #FF9800 50%, #F57C00 100%);
+}
+
+.sticky-note.orange .corner-curl {
+  border-color: transparent transparent #E65100 transparent;
+}
+
+.sticky-note.blue {
+  background: linear-gradient(135deg, #81D4FA 0%, #29B6F6 50%, #03A9F4 100%);
+}
+
+.sticky-note.blue .corner-curl {
+  border-color: transparent transparent #0277BD transparent;
+}
+
+.sticky-note.purple {
+  background: linear-gradient(135deg, #B39DDB 0%, #9575CD 50%, #7E57C2 100%);
+}
+
+.sticky-note.purple .corner-curl {
+  border-color: transparent transparent #5E35B1 transparent;
+}

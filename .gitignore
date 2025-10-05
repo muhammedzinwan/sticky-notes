@@ -1,0 +1,19 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+.env
+notes.json
+
+# Build artifacts
+!build/icon.ico
+
+# electron-builder
+*.blockmap
+*.yaml
+*.yml
+
+## Md Files 
+BUILD_GUIDE.md
+ICON_SETUP.md
+QUICK_START.md
