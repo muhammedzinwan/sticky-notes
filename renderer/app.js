@@ -4,6 +4,7 @@ let noteId = null;
 let isAlwaysOnTop = true;
 let isBackgroundMode = false;
 let isDeleting = false;
+let blurTimeout = null;
 
 // DOM elements
 const textarea = document.querySelector('.note-textarea');
@@ -86,8 +87,14 @@ ipcRenderer.on('always-on-top-status', (event, status) => {
 // Toggle opacity (background mode)
 btnOpacity.addEventListener('click', () => {
   isBackgroundMode = !isBackgroundMode;
-  const opacity = isBackgroundMode ? 0.3 : 1.0;
-  ipcRenderer.send('set-opacity', opacity);
+  if (!isBackgroundMode) {
+    // Exiting background mode - restore full opacity
+    clearTimeout(blurTimeout);
+    ipcRenderer.send('set-opacity', 1.0);
+  } else {
+    // Entering background mode - set to transparent
+    ipcRenderer.send('set-opacity', 0.3);
+  }
   btnOpacity.classList.toggle('background-mode', isBackgroundMode);
   stickyNote.classList.toggle('background-mode', isBackgroundMode);
   btnOpacity.title = isBackgroundMode ? 'Background Mode ✓' : 'Normal Mode';
@@ -136,5 +143,23 @@ window.addEventListener('beforeunload', () => {
       id: noteId,
       content: textarea.value
     });
+  }
+});
+
+// Background mode focus behavior - bring to full opacity when focused
+window.addEventListener('focus', () => {
+  if (isBackgroundMode) {
+    clearTimeout(blurTimeout);
+    ipcRenderer.send('set-opacity', 1.0);
+  }
+});
+
+window.addEventListener('blur', () => {
+  if (isBackgroundMode) {
+    // Wait 3 seconds before fading back to background mode
+    clearTimeout(blurTimeout);
+    blurTimeout = setTimeout(() => {
+      ipcRenderer.send('set-opacity', 0.3);
+    }, 3000);
   }
 });

@@ -2,6 +2,14 @@ const { app, BrowserWindow, ipcMain, globalShortcut, Tray, Menu, screen } = requ
 const path = require('path');
 const fs = require('fs');
 
+// Hot reload in dev mode
+if (process.argv.includes('--dev')) {
+  require('electron-reload')(__dirname, {
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+    hardResetMethod: 'exit'
+  });
+}
+
 const NOTES_FILE = path.join(app.getPath('userData'), 'notes.json');
 const SETTINGS_FILE = path.join(app.getPath('userData'), 'settings.json');
 let notes = [];
@@ -252,7 +260,23 @@ ipcMain.on('toggle-always-on-top', (event) => {
 
 ipcMain.on('set-opacity', (event, opacity) => {
   const window = BrowserWindow.fromWebContents(event.sender);
-  window.setOpacity(opacity);
+
+  // Smooth opacity transition
+  const currentOpacity = window.getOpacity();
+  const step = (opacity - currentOpacity) / 20; // 20 steps
+  let count = 0;
+
+  const interval = setInterval(() => {
+    count++;
+    const newOpacity = currentOpacity + (step * count);
+
+    if (count >= 20) {
+      window.setOpacity(opacity);
+      clearInterval(interval);
+    } else {
+      window.setOpacity(newOpacity);
+    }
+  }, 10); // 10ms per step = 200ms total transition
 });
 
 ipcMain.on('new-note', () => {

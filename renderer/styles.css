@@ -88,6 +88,7 @@ body {
   transition: all 0.3s ease;
   cursor: pointer;
   -webkit-app-region: no-drag;
+  padding: 5px; /* Add some padding to increase clickable area */
 }
 
 .push-pin:hover {
@@ -110,6 +111,7 @@ body {
     inset -1px -1px 2px rgba(0, 0, 0, 0.15),
     inset 1px 1px 2px rgba(255, 255, 255, 0.6);
   transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .pin-head::after {
@@ -132,6 +134,7 @@ body {
   border-radius: 0 0 1px 1px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 /* Push pin - Pinned State (Pressed Into Paper) */
@@ -165,16 +168,40 @@ body {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Drag handle - covers the pin and top area */
+/* Drag handle - split to exclude pin area */
 .drag-handle {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 20%;
-  -webkit-app-region: drag;
   cursor: move;
-  z-index: 15;
+  z-index: 5;
+  pointer-events: none; /* Disable on parent */
+}
+
+/* Left drag area */
+.drag-handle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%; /* Left 40% for dragging */
+  height: 100%;
+  -webkit-app-region: drag;
+  pointer-events: auto;
+}
+
+/* Right drag area */
+.drag-handle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%; /* Right 40% for dragging */
+  height: 100%;
+  -webkit-app-region: drag;
+  pointer-events: auto;
 }
 
 /* Textarea overlay */

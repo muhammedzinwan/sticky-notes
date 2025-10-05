@@ -144,15 +144,20 @@
   - Added cursor pointer and hover effects (scale 1.15, brightness boost)
   - Active state feedback (scale 0.95 on click)
   - Same functionality as 📌 emoji button for testing
-- **Background Mode Pin Visibility**: Pin stays more visible in opacity mode (styles.css:273-280, app.js:92)
-  - Pin opacity set to 90% when note is at 30% opacity
-  - Makes pin easily distinguishable from paper in background mode
+- **Background Mode Pin Visibility**: Pin stands out in opacity mode (styles.css:274-276, app.js:89-101)
+  - Pin gets 1.8x brightness and 1.5x saturation boost in background mode
+  - Makes pin easily distinguishable from paper when note is transparent
   - Helps identify multiple notes when semi-transparent
 - **Random Pin Colors**: Each note gets unique random pin color on creation (app.js:17-46)
   - 7 color variants: Red, Orange, Yellow, Green, Blue, Purple, Pink
   - Both normal and pressed states maintain color consistency
   - Uses CSS custom properties (--pin-light, --pin-dark, --pin-pressed-light, --pin-pressed-dark)
   - Helps visually distinguish between multiple notes
+- **Smart Focus in Background Mode**: Notes automatically come into focus when clicked (app.js:7,150-165)
+  - Click on note → Instant full opacity (1.0)
+  - Click away → 3-second delay → Fades back to background mode (0.3)
+  - Only active when background mode is enabled
+  - Allows easy editing while maintaining unobtrusive background presence
 
 ### Technical Details
 - Stack: Electron, HTML/CSS/JavaScript
