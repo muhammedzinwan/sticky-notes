@@ -113,29 +113,6 @@ btnDelete.addEventListener('click', () => {
   }
 });
 
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-  // Ctrl+T: Toggle always on top
-  if (e.ctrlKey && e.key === 't') {
-    e.preventDefault();
-    btnToggleTop.click();
-  }
-
-  // Ctrl+B: Toggle background mode
-  if (e.ctrlKey && e.key === 'b') {
-    e.preventDefault();
-    btnOpacity.click();
-  }
-
-  // Ctrl+W: Delete note
-  if (e.ctrlKey && e.key === 'w') {
-    e.preventDefault();
-    btnDelete.click();
-  }
-
-  // Ctrl+Shift+N: New note (handled by main process globally)
-});
-
 // Save on window unload (only if not deleting)
 window.addEventListener('beforeunload', () => {
   if (!isDeleting) {

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, globalShortcut, Tray, Menu, screen } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, screen } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -307,11 +307,6 @@ app.whenReady().then(() => {
   // Create system tray
   createTray();
 
-  // Register global shortcut for new note
-  globalShortcut.register('CommandOrControl+Shift+N', () => {
-    createNoteWindow();
-  });
-
   // Load existing notes or create first one
   if (notes.length === 0) {
     createNoteWindow();
@@ -326,7 +321,7 @@ app.on('window-all-closed', (e) => {
 });
 
 app.on('will-quit', () => {
-  globalShortcut.unregisterAll();
+  // Cleanup
 });
 
 app.on('activate', () => {

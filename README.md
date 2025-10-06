@@ -6,11 +6,10 @@ Beautiful desktop sticky notes with realistic pin aesthetic for Windows.
 
 - 📌 **Pure CSS Design**: Beautiful sticky notes with realistic shadows and corner curl
 - 🖱️ **Easy Dragging**: Click and drag from the top pin area
-- 👁️ **Background Mode**: Toggle to 30% opacity (Ctrl+B)
-- 📍 **Always on Top**: Keep notes visible (Ctrl+T)
+- 👁️ **Background Mode**: Toggle to 30% opacity
+- 📍 **Always on Top**: Keep notes visible
 - 💾 **Auto-Save**: Notes persist across sessions with position memory
-- ⌨️ **Keyboard Shortcuts**: Quick access to all features
-- ➕ **Multiple Notes**: Create unlimited notes (Ctrl+Shift+N)
+- ➕ **Multiple Notes**: Create unlimited notes
 - ⚙️ **Settings Panel**: Customize font size, colors, and behavior
 - 🎨 **System Tray**: Runs in background with tray menu
 
@@ -64,12 +63,6 @@ npm run build:dir
 ### From System Tray
 - **Right-click** tray icon → New Note / Settings / Quit
 - **Double-click** tray icon → Create new note
-
-### Keyboard Shortcuts
-- **Ctrl+Shift+N**: Create new note
-- **Ctrl+T**: Toggle always-on-top
-- **Ctrl+B**: Toggle background mode (opacity)
-- **Ctrl+W**: Delete current note
 
 ### Settings
 Right-click tray icon → Settings to customize:
